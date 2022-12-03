@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      role: ciao
+  template:
+    metadata:
+      labels:
+        role: ciao
+    spec:
+      containers:
+      - name: bonjour
+        image: gcr.io/google-samples/hello-app:1.0
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-service
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    role: ciao
